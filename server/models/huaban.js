@@ -1,6 +1,7 @@
-import { Schema } from 'mongoose';
+import mongoose, { Schema } from 'mongoose';
+import './index';
 
-const huabanSchema = new Schema({
+const HuabanSchema = new Schema({
   pin_id: String,
   img_hash: String,
   width: Number,
@@ -11,6 +12,4 @@ const huabanSchema = new Schema({
   load_time: Number,
 });
 
-export default (mongo) => {
-  mongo.model('huaban_drawcrowd', huabanSchema, 'huaban_drawcrowd');
-};
+export default mongoose.model('huaban_drawcrowd', HuabanSchema, 'huaban_drawcrowd');

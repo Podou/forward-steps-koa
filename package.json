@@ -2,13 +2,34 @@
   "name": "forward-steps-koa",
   "version": "0.0.1",
   "description": "",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "babel-node app.js"
+    "start": "nodemon"
   },
   "author": "",
   "license": "MIT",
+  "nodemonConfig": {
+    "restartable": "rs",
+    "ignore": [
+      ".git",
+      "node_modules/**/node_modules"
+    ],
+    "verbose": true,
+    "execMap": {
+      "js": "babel-node"
+    },
+    "events": {
+      "restart": "osascript -e 'display notification \"App restarted due to:\n'$FILENAME'\" with title \"nodemon\"'"
+    },
+    "watch": [
+      "server/"
+    ],
+    "env": {
+      "NODE_ENV": "development"
+    },
+    "ext": "js,json"
+  },
   "dependencies": {
     "koa": "^2.5.1",
     "koa-bodyparser": "^4.2.0",
@@ -27,6 +48,7 @@
     "babel-preset-env": "^1.6.1",
     "eslint": "4.9.0",
     "eslint-config-airbnb-base": "12.1.0",
-    "eslint-plugin-import": "2.7.0"
+    "eslint-plugin-import": "2.7.0",
+    "nodemon": "^1.17.4"
   }
 }
