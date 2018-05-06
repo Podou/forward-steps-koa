@@ -11,7 +11,8 @@
   "license": "MIT",
   "dependencies": {
     "koa": "^2.5.1",
-    "koa-router": "^7.4.0"
+    "koa-router": "^7.4.0",
+    "mongoose": "^5.0.17"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
