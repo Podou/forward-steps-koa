@@ -9,6 +9,7 @@
 ## Reference
 * [Koa2进阶学习笔记](https://github.com/ChenShenhai/koa2-note/)
 * [Easyclub 基于koa2的论坛系统](https://github.com/k-dylan/easyclub)
+* [Koa集成权限认证中间件之Passport](https://www.jianshu.com/p/7010bea0c656)
 
 
 ## 我的口号

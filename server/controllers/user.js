@@ -6,7 +6,7 @@ const logger = log4js.getLogger();
 
 const get = async (ctx) => {
   const obj = await mongo('huaban_drawcrowd').findOne({});
-  logger.info('Request user info.');
+  logger.info('Get userInfo, passport session:', ctx.state.user);
   ctx.body = obj;
 };
 
