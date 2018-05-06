@@ -1,18 +1,15 @@
 import Koa from 'koa';
-// import Router from 'koa-router';
-
+import log4js from 'log4js';
 import router from './server/routes';
 
-const app = new Koa();
-// const router = new Router();
+log4js.configure('./server/config/log4js.json');
+const logger = log4js.getLogger();
 
-// router.get('/', (ctx, next) => {
-//   ctx.body = 'Hello World';
-// });
+const app = new Koa();
 
 app
   .use(router.routes())
   .use(router.allowedMethods());
 
 app.listen(3000);
-console.log('Request http://localhost:3000');
+logger.info('Koa2 server is running in http://localhost:3000');
