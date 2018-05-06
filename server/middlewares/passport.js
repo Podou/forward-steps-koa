@@ -11,6 +11,7 @@ passport.use(new LocalStrategy.Strategy(async (username, password, done) => {
   logger.debug('Passport LocalStrategy', username, password);
   const existUser = await userService.authUser(username, password);
   if (existUser) {
+    // 用户存在，返回用户信息
     return done(null, existUser, 'Login successful');
   }
   return done(null, false, 'Username or password is wrong');

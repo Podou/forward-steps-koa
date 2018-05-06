@@ -10,10 +10,15 @@ import log4js from 'log4js';
 import authenticate from './server/middlewares/authenticate';
 import passport from './server/middlewares/passport';
 import router from './server/routes';
+import modelInit from './server/models';
 
 log4js.configure('./server/config/log4js.json');
 const logger = log4js.getLogger();
 
+// init db
+modelInit();
+
+// init server
 const app = new Koa();
 
 // Add middlewares

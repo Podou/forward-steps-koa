@@ -1,5 +1,4 @@
 import mongoose, { Schema } from 'mongoose';
-import './index';
 
 const HuabanSchema = new Schema({
   pin_id: String,

@@ -1,5 +1,4 @@
 import mongoose, { Schema } from 'mongoose';
-import './index';
 
 const UserSchema = new Schema({
   username: String,
