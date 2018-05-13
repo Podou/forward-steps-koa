@@ -1,9 +1,11 @@
 import Koa from 'koa';
+import path from 'path';
+
 import bodyParser from 'koa-bodyparser';
 import convert from 'koa-convert';
 import json from 'koa-json';
-// import passport from 'koa-passport';
 import session from 'koa-session2';
+import serve from 'koa-static';
 
 import log4js from 'log4js';
 
@@ -15,6 +17,9 @@ import modelInit from './server/models';
 log4js.configure('./server/config/log4js.json');
 const logger = log4js.getLogger();
 
+logger.debug(process.cwd());
+logger.debug();
+
 // init db
 modelInit();
 
@@ -24,6 +29,7 @@ const app = new Koa();
 // Add middlewares
 app.use(convert(bodyParser()));
 app.use(convert(json()));
+app.use(convert(serve(path.join(process.cwd(), 'static'), {})));
 
 app.keys = ['secret'];
 app.use(bodyParser());

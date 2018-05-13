@@ -12,5 +12,7 @@ router.post('/login', controllers.auth.login);
 router.post('/logout', controllers.auth.logout);
 router.post('/registry', controllers.auth.registry);
 
+router.post('/upload', controllers.upload);
+
 logger.info('Initialize router successful');
 export default router;

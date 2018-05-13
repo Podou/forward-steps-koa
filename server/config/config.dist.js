@@ -1,3 +1,4 @@
+import path from 'path';
 
 // MongoDB databse config
 export const mongoConfig = {
@@ -7,6 +8,12 @@ export const mongoConfig = {
   port: 27017,
   database: 'yourDatabase',
 };
+
+export const upload = {
+  savePath: path.join(process.cwd(), 'static', 'file'),
+  urlPath: 'file',
+};
+export const supportAuth = true;
 
 export default {
   mongoConfig,

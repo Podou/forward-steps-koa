@@ -1,7 +1,7 @@
 import getPassword from './getPassword';
+import * as fileUtils from './fileUtils';
 
-const xTest = '';
 export {
   getPassword,
-  xTest,
+  fileUtils,
 };

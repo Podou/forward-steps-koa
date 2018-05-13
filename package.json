@@ -23,6 +23,7 @@
       "restart": "osascript -e 'display notification \"App restarted due to:\n'$FILENAME'\" with title \"nodemon\"'"
     },
     "watch": [
+      "app.js",
       "server/"
     ],
     "env": {
@@ -31,6 +32,7 @@
     "ext": "js,json"
   },
   "dependencies": {
+    "busboy": "^0.2.14",
     "koa": "^2.5.1",
     "koa-bodyparser": "^4.2.0",
     "koa-convert": "^1.2.0",
@@ -38,9 +40,11 @@
     "koa-passport": "^4.0.1",
     "koa-router": "^7.4.0",
     "koa-session2": "^2.2.6",
+    "koa-static": "^4.0.2",
     "log4js": "^2.5.3",
     "mongoose": "^5.0.17",
-    "passport-local": "^1.0.0"
+    "passport-local": "^1.0.0",
+    "uuid": "^3.2.1"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
