@@ -10,6 +10,7 @@ import serve from 'koa-static';
 import log4js from 'log4js';
 
 import authenticate from './server/middlewares/authenticate';
+import MongooseStore from './server/middlewares/session';
 import passport from './server/middlewares/passport';
 import router from './server/routes';
 import modelInit from './server/models';
@@ -32,8 +33,8 @@ app.use(convert(json()));
 app.use(convert(serve(path.join(process.cwd(), 'static'), {})));
 
 app.keys = ['secret'];
-app.use(bodyParser());
-app.use(session({}, app));
+app.use(convert(bodyParser()));
+app.use(convert(session({ store: new MongooseStore() }, app)));
 
 // Add passport support
 app.use(passport.initialize());
