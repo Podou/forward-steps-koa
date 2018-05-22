@@ -33,6 +33,7 @@
   },
   "dependencies": {
     "busboy": "^0.2.14",
+    "http-proxy-middleware": "^0.18.0",
     "koa": "^2.5.1",
     "koa-bodyparser": "^4.2.0",
     "koa-convert": "^1.2.0",

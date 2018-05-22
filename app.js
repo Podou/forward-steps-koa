@@ -6,6 +6,7 @@ import convert from 'koa-convert';
 import json from 'koa-json';
 import session from 'koa-session2';
 import serve from 'koa-static';
+import proxy from 'http-proxy-middleware';
 
 import log4js from 'log4js';
 
@@ -47,6 +48,28 @@ app.use(authenticate);
 app
   .use(router.routes())
   .use(router.allowedMethods());
+
+app.use(async (ctx, next) => {
+  if (ctx.url.startsWith('/api')) {
+    /**
+     * 为什么要加上 ctx.respond = false;
+     * https://blog.csdn.net/sunshao904/article/details/79256685
+     * https://segmentfault.com/q/1010000014242953
+     * 如果您想要写入原始的 res 对象而不是让 Koa 处理你的 response，请使用此参数。
+     */
+    ctx.respond = false;
+    return proxy({
+      target: 'http://192.168.95.155', // 服务器地址
+      changeOrigin: true,
+      secure: false,
+      pathRewrite: {
+        '^/api/': '/',
+      },
+    })(ctx.req, ctx.res, next);
+  }
+  return next();
+});
+
 
 app.listen(3000);
 logger.info('Koa2 server is running in http://localhost:3000');
