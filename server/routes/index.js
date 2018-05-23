@@ -10,7 +10,7 @@ const router = new Router();
 router.get('/user', controllers.user.get);
 router.post('/login', controllers.auth.login);
 router.post('/logout', controllers.auth.logout);
-router.post('/registry', controllers.auth.registry);
+router.post('/register', controllers.auth.register);
 
 router.post('/upload', controllers.upload);
 

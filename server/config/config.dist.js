@@ -14,6 +14,7 @@ export const upload = {
   urlPath: 'file',
 };
 export const supportAuth = true;
+export const tokenSecret = 'jwt-secret';
 
 export default {
   mongoConfig,

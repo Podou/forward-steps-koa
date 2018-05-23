@@ -1,13 +1,13 @@
 
-import log4js from 'log4js';
+// import log4js from 'log4js';
 import { userService } from '../services';
 
-const logger = log4js.getLogger();
+// const logger = log4js.getLogger();
 
 const get = async (ctx) => {
   // const obj = await mongo('huaban_drawcrowd').findOne({});
-  logger.info('Get userInfo, passport session:', ctx.state.user);
-  ctx.body = ctx.state.user;
+  // logger.info('Get userInfo, passport session:', ctx.state.user);
+  ctx.body = 'ctx.state.user';
 };
 
 const addUser = async (ctx) => {

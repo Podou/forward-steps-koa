@@ -4,15 +4,21 @@ import path from 'path';
 import bodyParser from 'koa-bodyparser';
 import convert from 'koa-convert';
 import json from 'koa-json';
-import session from 'koa-session2';
+// import session from 'koa-session2';
 import serve from 'koa-static';
 import proxy from 'http-proxy-middleware';
+import jwt from 'koa-jwt';
 
 import log4js from 'log4js';
 
-import authenticate from './server/middlewares/authenticate';
-import MongooseStore from './server/middlewares/session';
-import passport from './server/middlewares/passport';
+import { tokenSecret } from './server/config/config';
+
+// Import custom middlewares.
+// import authenticate from './server/middlewares/authenticate';
+// import MongooseStore from './server/middlewares/session';
+// import passport from './server/middlewares/passport';
+import errorHandle from './server/middlewares/errorHandler';
+
 import router from './server/routes';
 import modelInit from './server/models';
 
@@ -31,18 +37,28 @@ const app = new Koa();
 // Add middlewares
 app.use(convert(bodyParser()));
 app.use(convert(json()));
+app.use(convert(bodyParser()));
 app.use(convert(serve(path.join(process.cwd(), 'static'), {})));
 
-app.keys = ['secret'];
-app.use(convert(bodyParser()));
-app.use(convert(session({ store: new MongooseStore() }, app)));
+// app.keys = ['secret'];
+// app.use(convert(session({ store: new MongooseStore() }, app)));
 
 // Add passport support
-app.use(passport.initialize());
-app.use(passport.session());
+// app.use(passport.initialize());
+// app.use(passport.session());
 
 // Authenticate middleware, if is authenticated, continues request.
-app.use(authenticate);
+// app.use(authenticate);
+
+// Use jwt token authentication.
+app.use(errorHandle);
+app.use(jwt({ secret: tokenSecret, key: 'token' }).unless({
+  path: [
+    /\/login/,
+    /\/logout/,
+    /\/register/,
+  ],
+}));
 
 // Add routes
 app
