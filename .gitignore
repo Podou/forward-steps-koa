@@ -11,3 +11,5 @@ config/config.js
 log/*.log
 
 static/file/*
+
+.env
