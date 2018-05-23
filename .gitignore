@@ -6,7 +6,7 @@ package-lock.json
 yarn.lock
 yarn-error.log
 
-config/config.js
+server/config/config.js
 
 log/*.log
 
