@@ -88,7 +88,6 @@ app.use(async (ctx, next) => {
   return next();
 });
 
-
-var listener = app.listen((process.env.PORT || 3000), function (){
-  logger.info('Koa2 server is running in http://localhost:' + listener.address().port);
+const listener = app.listen((process.env.PORT || 3000), () => {
+  logger.info(`Koa2 server is running in http://localhost:${listener.address().port}`);
 });
