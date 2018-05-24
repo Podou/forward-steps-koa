@@ -22,6 +22,8 @@ import errorHandle from './server/middlewares/errorHandler';
 import router from './server/routes';
 import modelInit from './server/models';
 
+require('dotenv').config();
+
 log4js.configure('./server/config/log4js.json');
 const logger = log4js.getLogger();
 
@@ -87,5 +89,6 @@ app.use(async (ctx, next) => {
 });
 
 
-app.listen(3000);
-logger.info('Koa2 server is running in http://localhost:3000');
+var listener = app.listen((process.env.PORT || 3000), function (){
+  logger.info('Koa2 server is running in http://localhost:' + listener.address().port);
+});
