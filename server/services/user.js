@@ -2,24 +2,36 @@ import UserModel from '../models/User';
 import * as utils from '../utils';
 
 const addNewUser = async (user) => {
-  const existUser = await UserModel.findOne({ username: user.username });
+  const queryUser = { username: user.username };
+  const existUser = await UserModel.findOne(queryUser);
   if (existUser) {
-    return false;
+    throw new Error('User exists.');
   }
-  const userInfo = {
-    username: user.username,
-    password: utils.getPassword(user.password),
-  };
-  await UserModel.create(userInfo);
-  return true;
+
+  try {
+    const userInfo = {
+      username: user.username,
+      password: utils.getPassword(user.password),
+    };
+    return await UserModel.create(userInfo);
+  } catch (err) {
+    throw err;
+  }
 };
 
 const authUser = async (username, password) => {
-  const existUser = await UserModel.findOne({
-    username,
-    password: utils.getPassword(password),
-  });
-  return existUser;
+  try {
+    const existUser = await UserModel.findOne({
+      username,
+      password: utils.getPassword(password),
+    });
+    if (!existUser) {
+      throw new Error('Username or password is not valid.');
+    }
+    return existUser;
+  } catch (err) {
+    throw err;
+  }
 };
 
 export {
