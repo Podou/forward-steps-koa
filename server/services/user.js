@@ -1,8 +1,19 @@
 import UserModel from '../models/User';
 import * as utils from '../utils';
 
-const addNewUser = async (user) => {
-  const queryUser = { username: user.username };
+/**
+ * Create new User:
+ * 1. Create new user with username and password
+ * 2. Init nickname with ''
+ */
+const addNewUser = async (username, password) => {
+  if (!username || !password) {
+    throw new Error('Username or password must be not null.');
+  }
+  if (!utils.stringUtils.isEmail(username)) {
+    throw new Error('Username must be email.');
+  }
+  const queryUser = { username };
   const existUser = await UserModel.findOne(queryUser);
   if (existUser) {
     throw new Error('User exists.');
@@ -10,8 +21,10 @@ const addNewUser = async (user) => {
 
   try {
     const userInfo = {
-      username: user.username,
-      password: utils.getPassword(user.password),
+      username,
+      password: utils.getPassword(password),
+      createTime: new Date().getTime(),
+      updateTime: new Date().getTime(),
     };
     return await UserModel.create(userInfo);
   } catch (err) {
@@ -19,6 +32,11 @@ const addNewUser = async (user) => {
   }
 };
 
+/**
+ * User login
+ * @param {*string} username
+ * @param {*string} password
+ */
 const authUser = async (username, password) => {
   try {
     const existUser = await UserModel.findOne({
@@ -34,7 +52,27 @@ const authUser = async (username, password) => {
   }
 };
 
+const updateNickname = async (username, nickname) => {
+  if (!username || !nickname) {
+    throw new Error('Username or nickname must be not null.');
+  }
+
+  // Username must exist.
+  const queryUser = { username };
+  const existUser = await UserModel.findOne(queryUser);
+  if (existUser) {
+    throw new Error('User exists.');
+  }
+
+  try {
+    await UserModel.update(queryUser);
+  } catch (err) {
+    throw err;
+  }
+};
+
 export {
   addNewUser,
   authUser,
+  updateNickname,
 };

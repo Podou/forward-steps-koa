@@ -17,11 +17,7 @@ const register = async (ctx) => {
     return;
   }
   try {
-    const user = {
-      username: body.username,
-      password: body.password,
-    };
-    const registerUser = await UserService.addNewUser(user);
+    const registerUser = await UserService.addNewUser(body.username, body.password);
     ctx.body = {
       msg: '注册成功',
       user: registerUser,
