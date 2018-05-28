@@ -13,6 +13,10 @@ const addNewUser = async (username, password) => {
   if (!utils.stringUtils.isEmail(username)) {
     throw new Error('Username must be email.');
   }
+
+  if (!password || password.length < 6) {
+    throw new Error('Password\'s length must be bigger than or equal 6.');
+  }
   const queryUser = { username };
   const existUser = await UserModel.findOne(queryUser);
   if (existUser) {

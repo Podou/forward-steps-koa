@@ -18,6 +18,7 @@ const register = async (ctx) => {
   }
   try {
     const registerUser = await UserService.addNewUser(body.username, body.password);
+    registerUser.password = '******';
     ctx.body = {
       msg: '注册成功',
       user: registerUser,
@@ -40,7 +41,7 @@ const login = async (ctx) => {
     const existUser = await UserService.authUser(body.username, body.password);
     ctx.status = 200;
 
-    delete existUser.password;
+    existUser.password = '******';
     // 生成 token 返回给客户端
     const token = jsonwebtoken.sign({
       data: existUser,
@@ -58,13 +59,45 @@ const login = async (ctx) => {
   }
 };
 
+/**
+ * TODO: How to revoke token from koa-jwt.
+ * @param {koa.Context} ctx
+ */
 const logout = async (ctx) => {
-  await ctx.logout();
   ctx.body = 'Logout successful';
+};
+
+const verifyEmail = async (ctx) => {
+  // Verify Email and send validate code to the email.
+};
+
+const verifyCode = async (ctx) => {
+  // Verify the code and the email. And return the token.
+};
+
+const changePassword = async (ctx) => {
+  // const { jwtData: { data: userInfo } } = ctx.state;
+  // const { body } = ctx.request;
+  // if (userInfo && userInfo.username && body && body.oldPassword && body.newPassword) {
+
+  // }
+};
+
+const changePic = async (ctx) => {
+  // Update user pic
+};
+
+const changeNickname = async (ctx) => {
+  // Update user nickname
 };
 
 export default {
   register,
   login,
   logout,
+  verifyCode,
+  verifyEmail,
+  changeNickname,
+  changePassword,
+  changePic,
 };

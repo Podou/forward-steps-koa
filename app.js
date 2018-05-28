@@ -56,9 +56,9 @@ app.use(convert(serve(path.join(process.cwd(), 'static'), {})));
 app.use(errorHandle);
 app.use(jwt({ secret: tokenSecret, key: 'jwtData' }).unless({
   path: [
-    /\/login/,
-    /\/logout/,
-    /\/register/,
+    /\/auth\/login/,
+    /\/auth\/logout/,
+    /\/auth\/register/,
   ],
 }));
 
