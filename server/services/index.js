@@ -1,7 +1,7 @@
 import * as userService from './user';
+import * as verifyService from './verify';
 
-const xTest = '';
 export {
   userService,
-  xTest,
+  verifyService,
 };

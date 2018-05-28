@@ -9,6 +9,14 @@ export const mongoConfig = {
   database: 'yourDatabase',
 };
 
+// Email Server Config.
+export const emailConfig = {
+  service: '',
+  username: '',
+  authorizationCode: '',
+};
+
+// Upload file settings.
 export const upload = {
   savePath: path.join(process.cwd(), 'static', 'file'),
   urlPath: 'file',
