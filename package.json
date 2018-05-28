@@ -38,6 +38,7 @@
     "is_js": "^0.9.0",
     "jsonwebtoken": "^8.2.1",
     "koa": "^2.5.1",
+    "koa-body": "^1.7.0",
     "koa-bodyparser": "^4.2.0",
     "koa-convert": "^1.2.0",
     "koa-json": "^2.0.2",

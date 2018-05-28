@@ -15,7 +15,7 @@ router.post('/auth/register', controllers.auth.register);
 router.post('/auth/verifycode', controllers.auth.verifyCode);
 router.post('/auth/verifyemail', controllers.auth.verifyEmail);
 router.post('/auth/changenickname', controllers.auth.changeNickname);
-router.post('/auth/changepassword', controllers.auth.changePassword);
+router.post('/auth/changepassword', controllers.auth.changePasswordWithCode);
 router.post('/auth/changepic', controllers.auth.changePic);
 
 router.post('/upload', controllers.upload);

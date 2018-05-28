@@ -1,7 +1,8 @@
 import jsonwebtoken from 'jsonwebtoken';
 
 import { tokenSecret } from '../config/config';
-import * as UserService from '../services/user';
+import * as userService from '../services/user';
+import * as verifyService from '../services/verify';
 
 /**
  * Register user.
@@ -17,7 +18,7 @@ const register = async (ctx) => {
     return;
   }
   try {
-    const registerUser = await UserService.addNewUser(body.username, body.password);
+    const registerUser = await userService.addNewUser(body.username, body.password);
     registerUser.password = '******';
     ctx.body = {
       msg: '注册成功',
@@ -38,7 +39,7 @@ const register = async (ctx) => {
 const login = async (ctx) => {
   const { body } = ctx.request;
   try {
-    const existUser = await UserService.authUser(body.username, body.password);
+    const existUser = await userService.authUser(body.username, body.password);
     ctx.status = 200;
 
     existUser.password = '******';
@@ -67,27 +68,101 @@ const logout = async (ctx) => {
   ctx.body = 'Logout successful';
 };
 
+/**
+ * Verify email and send verify code to the email.
+ * Needn't token.
+ * @param {* koa.Context} ctx
+ */
 const verifyEmail = async (ctx) => {
   // Verify Email and send validate code to the email.
+  const { body: { email } } = ctx.request;
+  try {
+    await verifyService.verifyEmail(email);
+    ctx.body = {
+      msg: 'Send email',
+    };
+  } catch (err) {
+    ctx.status = 401;
+    ctx.body = {
+      msg: err.message,
+    };
+  }
 };
 
+/**
+ * Verify code which is sent by email.
+ * Needn't token.
+ * @param {* koa.Context} ctx
+ */
 const verifyCode = async (ctx) => {
-  // Verify the code and the email. And return the token.
+  const { body: { email, code } } = ctx.request;
+  try {
+    await verifyService.verifyCode(email, code);
+    // Generate token, it defferent with login token, the data namespace is different.
+    const token = jsonwebtoken.sign({
+      changePassword: {
+        username: email,
+      },
+    }, tokenSecret, { expiresIn: '1h' });
+    ctx.body = {
+      msg: 'Verify code successful',
+      token,
+    };
+  } catch (err) {
+    ctx.status = 401;
+    ctx.body = {
+      msg: err.message,
+    };
+  }
 };
 
-const changePassword = async (ctx) => {
-  // const { jwtData: { data: userInfo } } = ctx.state;
-  // const { body } = ctx.request;
-  // if (userInfo && userInfo.username && body && body.oldPassword && body.newPassword) {
-
-  // }
+const changePasswordWithCode = async (ctx) => {
+  const { jwtData: { changePassword: { username } } } = ctx.state;
+  const { body: { newPassword } } = ctx.request;
+  try {
+    await userService.changePassword(username, newPassword);
+    ctx.body = {
+      msg: 'Update password successful.',
+    };
+  } catch (err) {
+    ctx.status = 401;
+    ctx.body = {
+      msg: err.message,
+    };
+  }
 };
 
 const changePic = async (ctx) => {
   // Update user pic
+  const { jwtData: { data: { username } } } = ctx.state;
+  const { body: { pic } } = ctx.request;
+  try {
+    await userService.changePic(username, pic);
+    ctx.body = {
+      msg: 'Update user picture successful.',
+    };
+  } catch (err) {
+    ctx.status = 401;
+    ctx.body = {
+      msg: err.message,
+    };
+  }
 };
 
 const changeNickname = async (ctx) => {
+  const { jwtData: { data: { username } } } = ctx.state;
+  const { body: { nickname } } = ctx.request;
+  try {
+    await userService.changeNickname(username, nickname);
+    ctx.body = {
+      msg: 'Update nickname successful.',
+    };
+  } catch (err) {
+    ctx.status = 401;
+    ctx.body = {
+      msg: err.message,
+    };
+  }
   // Update user nickname
 };
 
@@ -98,6 +173,6 @@ export default {
   verifyCode,
   verifyEmail,
   changeNickname,
-  changePassword,
+  changePasswordWithCode,
   changePic,
 };

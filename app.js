@@ -1,7 +1,7 @@
 import Koa from 'koa';
 import path from 'path';
 
-import bodyParser from 'koa-bodyparser';
+import bodyParser from 'koa-body';
 import convert from 'koa-convert';
 import json from 'koa-json';
 // import session from 'koa-session2';
@@ -37,9 +37,9 @@ modelInit();
 const app = new Koa();
 
 // Add middlewares
-app.use(convert(bodyParser()));
 app.use(convert(json()));
-app.use(convert(bodyParser()));
+// https://cnodejs.org/topic/5761080bfa83165906ace310
+// app.use(convert(bodyParser({ multipart: true })));
 app.use(convert(serve(path.join(process.cwd(), 'static'), {})));
 
 // app.keys = ['secret'];
@@ -59,6 +59,8 @@ app.use(jwt({ secret: tokenSecret, key: 'jwtData' }).unless({
     /\/auth\/login/,
     /\/auth\/logout/,
     /\/auth\/register/,
+    /\/auth\/verifyemail/,
+    /\/auth\/verifycode/,
   ],
 }));
 
