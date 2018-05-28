@@ -39,13 +39,16 @@ const login = async (ctx) => {
   try {
     const existUser = await UserService.authUser(body.username, body.password);
     ctx.status = 200;
+
+    delete existUser.password;
+    // 生成 token 返回给客户端
+    const token = jsonwebtoken.sign({
+      data: existUser,
+    }, tokenSecret, { expiresIn: '1h' });
     ctx.body = {
       msg: 'Login successful.',
       user: existUser,
-      // 生成 token 返回给客户端
-      token: jsonwebtoken.sign({
-        data: existUser,
-      }, tokenSecret, { expiresIn: '1h' }),
+      token,
     };
   } catch (err) {
     ctx.status = 401;

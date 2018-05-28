@@ -54,7 +54,7 @@ app.use(convert(serve(path.join(process.cwd(), 'static'), {})));
 
 // Use jwt token authentication.
 app.use(errorHandle);
-app.use(jwt({ secret: tokenSecret, key: 'token' }).unless({
+app.use(jwt({ secret: tokenSecret, key: 'jwtData' }).unless({
   path: [
     /\/login/,
     /\/logout/,
