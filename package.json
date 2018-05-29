@@ -32,6 +32,7 @@
     "ext": "js,json"
   },
   "dependencies": {
+    "babel-polyfill": "^6.26.0",
     "busboy": "^0.2.14",
     "dotenv": "^5.0.1",
     "http-proxy-middleware": "^0.18.0",
@@ -55,9 +56,13 @@
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.3",
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-preset-env": "^1.6.1",
     "babel-preset-es2017": "^6.24.1",
+    "babel-preset-latest": "^6.24.1",
+    "babel-preset-stage-3": "^6.24.1",
+    "babel-register": "^6.26.0",
     "chai": "^4.1.2",
     "eslint": "4.9.0",
     "eslint-config-airbnb-base": "12.1.0",

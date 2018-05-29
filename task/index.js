@@ -36,7 +36,7 @@ if (options.test) {
 
     const subprocess = spawn(
         mocha +
-        ' --reporter spec ' +
+        ' --reporter spec --require babel-register ' +
         options.test.join(' '), { stdio: 'inherit', shell: true, cwd });
 
     subprocess.on('exit', code => {
