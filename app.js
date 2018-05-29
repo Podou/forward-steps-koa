@@ -1,7 +1,7 @@
 import Koa from 'koa';
 import path from 'path';
 
-import bodyParser from 'koa-body';
+import bodyParser from 'koa-bodyparser';
 import convert from 'koa-convert';
 import json from 'koa-json';
 // import session from 'koa-session2';
@@ -39,7 +39,7 @@ const app = new Koa();
 // Add middlewares
 app.use(convert(json()));
 // https://cnodejs.org/topic/5761080bfa83165906ace310
-// app.use(convert(bodyParser({ multipart: true })));
+app.use(convert(bodyParser({ multipart: true })));
 app.use(convert(serve(path.join(process.cwd(), 'static'), {})));
 
 // app.keys = ['secret'];
