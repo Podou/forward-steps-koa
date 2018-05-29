@@ -1,47 +1,38 @@
 #!/usr/bin/env node
 
-'use strict';
-
-const shell = require('shelljs');
-const { spawn } = require('child_process');
-const path = require('path');
-const fs = require('fs');
-const chalk = require('chalk');
-const chokidar = require('chokidar');
-const os = require('os');
+import { spawn } from 'child_process';
+import path from 'path';
+import fs from 'fs';
+import optionator from 'optionator';
 
 const cwd = process.cwd();
 const pwd = __dirname;
-const TEMP_DIR = path.resolve(cwd, './tmp');
 
-const optionator = require('optionator')({
-    options: [{
-        option: 'test',
-        type: '[path::String]',
-        description: 'Run unittests on specified files/directories.'
-    }, {
-            option: 'cover',
-            type: 'Boolean',
-            description: 'Run all unittests with coverage report.'
-    }]
+
+const op = optionator({
+  options: [{
+    option: 'test',
+    type: '[path::String]',
+    description: 'Run unittests on specified files/directories.'
+  }, {
+    option: 'cover',
+    type: 'Boolean',
+    description: 'Run all unittests with coverage report.'
+  }],
 });
 
-const options = optionator.parse(process.argv);
+const options = op.parse(process.argv);
 
 // run unittests
 if (options.test) {
-    const mocha = fs.existsSync(path.resolve(cwd, './node_modules/mocha/bin/mocha')) ? 
-        path.resolve(cwd, './node_modules/mocha/bin/mocha') : 
-        path.resolve(pwd, './node_modules/mocha/bin/mocha');
+  const mocha = fs.existsSync(path.resolve(cwd, './node_modules/mocha/bin/mocha')) ?
+    path.resolve(cwd, './node_modules/mocha/bin/mocha') :
+    path.resolve(pwd, './node_modules/mocha/bin/mocha');
 
-    const subprocess = spawn(
-        mocha +
-        ' --reporter spec --require babel-register ' +
-        options.test.join(' '), { stdio: 'inherit', shell: true, cwd });
-
-    subprocess.on('exit', code => {
-        process.exit(code);
-    });
+  const subprocess = spawn(`${mocha} --reporter spec --require babel-register ${options.test.join(' ')}`, { stdio: 'inherit', shell: true, cwd });
+  subprocess.on('exit', (code) => {
+    process.exit(code);
+  });
 }
 
 // run unittest coverage
