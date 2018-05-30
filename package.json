@@ -53,8 +53,8 @@
     "log4js": "^2.5.3",
     "mongoose": "^5.0.17",
     "nodemailer": "^4.6.5",
-    "passport-local": "^1.0.0",
     "optionator": "^0.8.2",
+    "passport-local": "^1.0.0",
     "uuid": "^3.2.1"
   },
   "devDependencies": {
