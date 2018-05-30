@@ -90,7 +90,7 @@ app.use(async (ctx, next) => {
   return next();
 });
 
-module.exports = app
+module.exports = app;
 
 const listener = app.listen((process.env.PORT || 3000), () => {
   logger.info(`Koa2 server is running in http://localhost:${listener.address().port}`);

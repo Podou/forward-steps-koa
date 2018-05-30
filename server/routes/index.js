@@ -1,7 +1,6 @@
 
 import Router from 'koa-router';
 import log4js from 'log4js';
-
 import controllers from '../controllers';
 
 const logger = log4js.getLogger();
