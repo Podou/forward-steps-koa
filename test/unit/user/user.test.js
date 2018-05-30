@@ -42,7 +42,6 @@ describe('Start testing user function', () => {
           done();
         });
     });
-
     /*
      *get the login token and try to use it then logout and try to use it again
      */
