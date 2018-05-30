@@ -50,6 +50,7 @@
     "koa-router": "^7.4.0",
     "koa-session2": "^2.2.6",
     "koa-static": "^4.0.2",
+    "lodash": "^4.17.10",
     "log4js": "^2.5.3",
     "mongoose": "^5.0.17",
     "nodemailer": "^4.6.5",

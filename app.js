@@ -64,7 +64,10 @@ app.use(jwt({ secret: tokenSecret, key: 'jwtData' }).unless({
   ],
 }));
 
-// Add routes
+/**
+ * Add Routes
+ * Test: one app only support one router instance.
+ */
 app
   .use(router.routes())
   .use(router.allowedMethods());
