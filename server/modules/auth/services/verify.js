@@ -1,5 +1,5 @@
-import { stringUtils, codeUtils, emialUtils } from '../utils';
-import VerifyCodeModel from '../models/VerifyCode';
+import { stringUtils, codeUtils, emialUtils } from '../../../utils';
+import VerifyCodeModel from '../models/verifyCode';
 
 export const verifyEmail = async (email) => {
   if (!stringUtils.isEmail(email)) {

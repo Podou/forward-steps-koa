@@ -1,5 +1,5 @@
-import UserModel from '../models/User';
-import * as utils from '../utils';
+import UserModel from '../models/user';
+import * as utils from '../../../utils';
 
 /**
  * Create new User:

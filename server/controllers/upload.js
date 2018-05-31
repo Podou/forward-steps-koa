@@ -10,16 +10,7 @@ const logger = log4js.getLogger();
 
 export default async (ctx) => {
   const request = ctx.req;
-  // const { body } = ctx.request;
-  // if (!request || !request.type || !uploadConfig[request.type]) {
-  //   ctx.state = 401;
-  //   ctx.body = {
-  //     msg: 'Invalid upload type.',
-  //   };
-  //   return new Promise((resolve) => { resolve(); });
-  // }
-
-  fileUtils.existFolder(upload.savePath);
+  await fileUtils.existFolder(upload.savePath);
   return new Promise((resolve) => {
     const files = [];
     // Use busboy to handle upload file

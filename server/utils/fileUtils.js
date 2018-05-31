@@ -1,9 +1,11 @@
-import fs from 'fs';
+import Promise from 'bluebird';
 import path from 'path';
 
-export const existFolder = (folderPath) => {
-  if (!fs.existsSync(folderPath)) {
-    fs.mkdirSync(folderPath);
+const fs = Promise.promisifyAll(require('fs'));
+
+export const existFolder = async (folderPath) => {
+  if (!await fs.exists(folderPath)) {
+    await fs.mkdir(folderPath);
   }
 };
 

@@ -33,6 +33,7 @@
   },
   "dependencies": {
     "babel-polyfill": "^6.26.0",
+    "bluebird": "^3.5.1",
     "busboy": "^0.2.14",
     "chalk": "^2.4.1",
     "chokidar": "^2.0.3",

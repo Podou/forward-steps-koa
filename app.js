@@ -20,7 +20,7 @@ import { tokenSecret } from './server/config/config';
 import errorHandle from './server/middlewares/errorHandler';
 
 import router from './server/routes';
-import modelInit from './server/models';
+import mongoConnection from './server/config/mongoConnection';
 
 require('dotenv').config();
 
@@ -31,7 +31,7 @@ logger.debug(process.cwd());
 logger.debug();
 
 // init db
-modelInit();
+mongoConnection();
 
 // init server
 const app = new Koa();
