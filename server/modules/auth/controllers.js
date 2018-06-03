@@ -1,8 +1,8 @@
 import jsonwebtoken from 'jsonwebtoken';
 
-import { tokenSecret } from '../config/config';
-import * as userService from '../services/user';
-import * as verifyService from '../services/verify';
+import { tokenSecret } from '../../config/config';
+import * as userService from './services/user';
+import * as verifyService from './services/verify';
 
 /**
  * Register user.
