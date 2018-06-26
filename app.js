@@ -20,7 +20,7 @@ import { tokenSecret } from './server/config/config';
 import errorHandle from './server/middlewares/errorHandler';
 
 import router from './server/routes';
-import modelInit from './server/models';
+import mongoConnection from './server/config/mongoConnection';
 
 require('dotenv').config();
 
@@ -31,15 +31,15 @@ logger.debug(process.cwd());
 logger.debug();
 
 // init db
-modelInit();
+mongoConnection();
 
 // init server
 const app = new Koa();
 
 // Add middlewares
-app.use(convert(bodyParser()));
 app.use(convert(json()));
-app.use(convert(bodyParser()));
+// https://cnodejs.org/topic/5761080bfa83165906ace310
+app.use(convert(bodyParser({ multipart: true })));
 app.use(convert(serve(path.join(process.cwd(), 'static'), {})));
 
 // app.keys = ['secret'];
@@ -54,15 +54,20 @@ app.use(convert(serve(path.join(process.cwd(), 'static'), {})));
 
 // Use jwt token authentication.
 app.use(errorHandle);
-app.use(jwt({ secret: tokenSecret, key: 'token' }).unless({
+app.use(jwt({ secret: tokenSecret, key: 'jwtData' }).unless({
   path: [
-    /\/login/,
-    /\/logout/,
-    /\/register/,
+    /\/auth\/login/,
+    /\/auth\/logout/,
+    /\/auth\/register/,
+    /\/auth\/verifyemail/,
+    /\/auth\/verifycode/,
   ],
 }));
 
-// Add routes
+/**
+ * Add Routes
+ * Test: one app only support one router instance.
+ */
 app
   .use(router.routes())
   .use(router.allowedMethods());
@@ -87,6 +92,8 @@ app.use(async (ctx, next) => {
   }
   return next();
 });
+
+module.exports = app;
 
 const listener = app.listen((process.env.PORT || 3000), () => {
   logger.info(`Koa2 server is running in http://localhost:${listener.address().port}`);

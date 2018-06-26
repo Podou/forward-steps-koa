@@ -4,7 +4,7 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "babel-node ./task/index.js --test ./test/unit/**",
     "start": "nodemon"
   },
   "author": "",
@@ -32,11 +32,17 @@
     "ext": "js,json"
   },
   "dependencies": {
+    "babel-polyfill": "^6.26.0",
+    "bluebird": "^3.5.1",
     "busboy": "^0.2.14",
+    "chalk": "^2.4.1",
+    "chokidar": "^2.0.3",
     "dotenv": "^5.0.1",
     "http-proxy-middleware": "^0.18.0",
+    "is_js": "^0.9.0",
     "jsonwebtoken": "^8.2.1",
     "koa": "^2.5.1",
+    "koa-body": "^1.7.0",
     "koa-bodyparser": "^4.2.0",
     "koa-convert": "^1.2.0",
     "koa-json": "^2.0.2",
@@ -45,19 +51,33 @@
     "koa-router": "^7.4.0",
     "koa-session2": "^2.2.6",
     "koa-static": "^4.0.2",
+    "lodash": "^4.17.10",
     "log4js": "^2.5.3",
     "mongoose": "^5.0.17",
+    "nodemailer": "^4.6.5",
+    "optionator": "^0.8.2",
     "passport-local": "^1.0.0",
     "uuid": "^3.2.1"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.3",
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-preset-env": "^1.6.1",
     "babel-preset-es2017": "^6.24.1",
+    "babel-preset-latest": "^6.24.1",
+    "babel-preset-stage-3": "^6.24.1",
+    "babel-register": "^6.26.0",
+    "chai": "^4.1.2",
     "eslint": "4.9.0",
     "eslint-config-airbnb-base": "12.1.0",
     "eslint-plugin-import": "2.7.0",
-    "nodemon": "^1.17.4"
+    "fs": "0.0.1-security",
+    "mocha": "^5.2.0",
+    "nodemon": "^1.17.4",
+    "path": "^0.12.7",
+    "shell": "^0.5.0",
+    "shelljs": "^0.8.2",
+    "supertest": "^3.1.0"
   }
 }
