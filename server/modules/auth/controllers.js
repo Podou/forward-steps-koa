@@ -1,8 +1,10 @@
 import jsonwebtoken from 'jsonwebtoken';
 
-import { tokenSecret } from '../../config/config';
+import config from '../../config/config';
 import * as userService from './services/user';
 import * as verifyService from './services/verify';
+
+const tokenSecret = config.tokenSecret;
 
 /**
  * Register user.
