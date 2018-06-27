@@ -2,9 +2,11 @@
   "name": "forward-steps-koa",
   "version": "0.1.0",
   "description": "",
-  "main": "app.js",
+  "main": "server/app.js",
   "scripts": {
     "test": "babel-node ./task/index.js --test ./test/unit/**",
+    "build": "babel server -d lib",
+    "lib": "node lib/app.js",
     "start": "nodemon"
   },
   "author": "",
@@ -23,7 +25,7 @@
       "restart": "osascript -e 'display notification \"App restarted due to:\n'$FILENAME'\" with title \"nodemon\"'"
     },
     "watch": [
-      "app.js",
+      "config/",
       "server/"
     ],
     "env": {
@@ -63,6 +65,7 @@
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.3",
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "babel-plugin-transform-runtime": "^6.23.0",
     "babel-preset-env": "^1.6.1",
     "babel-preset-es2017": "^6.24.1",
     "babel-preset-latest": "^6.24.1",

@@ -1,19 +1,19 @@
 import nodemailer from 'nodemailer';
 
-import { emailConfig } from '../config/config';
+import config from '../config/config';
+const emailConfig = config.emailConfig;
 
 /**
  * Order 23: Send email by 126 mial.
  *
  */
-
 class Sendmail {
   constructor() {
     this.transporter = nodemailer.createTransport({
       service: emailConfig.service,
       auth: {
         user: emailConfig.username,
-        pass: emailConfig.authorizationCode,
+        pass: emailConfig.password,
       },
     });
   }

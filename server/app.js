@@ -11,20 +11,22 @@ import jwt from 'koa-jwt';
 
 import log4js from 'log4js';
 
-import { tokenSecret } from './server/config/config';
+import config from './config/config';
 
 // Import custom middlewares.
-// import authenticate from './server/middlewares/authenticate';
-// import MongooseStore from './server/middlewares/session';
-// import passport from './server/middlewares/passport';
-import errorHandle from './server/middlewares/errorHandler';
+// import authenticate from './middlewares/authenticate';
+// import MongooseStore from './middlewares/session';
+// import passport from './middlewares/passport';
+import errorHandle from './middlewares/errorHandler';
 
-import router from './server/routes';
-import mongoConnection from './server/config/mongoConnection';
+import router from './routes';
+import mongoConnection from './config/mongoConnection';
+
+const tokenSecret = config.tokenSecret;
 
 require('dotenv').config();
 
-log4js.configure('./server/config/log4js.json');
+log4js.configure('config/log4js.json');
 const logger = log4js.getLogger();
 
 logger.debug(process.cwd());
